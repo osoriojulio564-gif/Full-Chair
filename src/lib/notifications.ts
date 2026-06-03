@@ -16,7 +16,7 @@ function broadcastToSalon(salonId: string, data: unknown) {
   if (!salonConns) return;
   const message = `data: ${JSON.stringify(data)}\n\n`;
   const encoder = new TextEncoder();
-  for (const controller of salonConns) {
+  for (const controller of Array.from(salonConns)) {
     try {
       controller.enqueue(encoder.encode(message));
     } catch {

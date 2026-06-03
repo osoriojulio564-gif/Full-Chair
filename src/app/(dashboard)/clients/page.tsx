@@ -11,7 +11,7 @@ interface Client {
   phone: string;
   email: string;
   notes: string;
-  tags: string[];
+  tags: string;
   source: string;
   createdAt: string;
   _count: {
