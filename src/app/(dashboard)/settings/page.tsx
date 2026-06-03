@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Settings,
   Clock,
@@ -9,6 +9,7 @@ import {
   Trash2,
   Copy,
   CheckCircle,
+  Loader2,
 } from "lucide-react";
 
 const DAYS = [
@@ -44,13 +45,13 @@ interface BusinessHours {
 
 export default function SettingsPage() {
   const [salon, setSalon] = useState({
-    name: "My Salon",
-    email: "contact@mysalon.com",
-    phone: "+1 555 123 4567",
-    address: "123 Main Street",
-    city: "New York",
-    country: "United States",
-    description: "A premium beauty salon offering the best services in town.",
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    country: "",
+    description: "",
     timezone: "America/New_York",
   });
 
@@ -58,8 +59,8 @@ export default function SettingsPage() {
     mon: { open: "09:00", close: "18:00", closed: false },
     tue: { open: "09:00", close: "18:00", closed: false },
     wed: { open: "09:00", close: "18:00", closed: false },
-    thu: { open: "09:00", close: "20:00", closed: false },
-    fri: { open: "09:00", close: "20:00", closed: false },
+    thu: { open: "09:00", close: "18:00", closed: false },
+    fri: { open: "09:00", close: "18:00", closed: false },
     sat: { open: "10:00", close: "16:00", closed: false },
   });
 
@@ -71,6 +72,124 @@ export default function SettingsPage() {
   });
 
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [savingInfo, setSavingInfo] = useState(false);
+  const [savingHours, setSavingHours] = useState(false);
+  const [savingBooking, setSavingBooking] = useState(false);
+  const [feedback, setFeedback] = useState<{ section: string; type: "success" | "error"; message: string } | null>(null);
+
+  // Fetch salon data on mount
+  useEffect(() => {
+    async function fetchSalon() {
+      try {
+        const res = await fetch("/api/settings");
+        if (!res.ok) throw new Error("Failed to fetch settings");
+        const data = await res.json();
+        const s = data.salon;
+        setSalon({
+          name: s.name || "",
+          email: s.email || "",
+          phone: s.phone || "",
+          address: s.address || "",
+          city: s.city || "",
+          country: s.country || "",
+          description: s.description || "",
+          timezone: s.timezone || "America/New_York",
+        });
+        // Populate hours from salon defaults
+        setHours((prev) => {
+          const updated = { ...prev };
+          for (const day of DAYS) {
+            updated[day.key] = {
+              ...updated[day.key],
+              open: s.openTime || "09:00",
+              close: s.closeTime || "18:00",
+            };
+          }
+          return updated;
+        });
+        setBooking((prev) => ({
+          ...prev,
+          currency: s.currency || "USD",
+        }));
+      } catch (err) {
+        console.error("Error fetching settings:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSalon();
+  }, []);
+
+  const showFeedback = (section: string, type: "success" | "error", message: string) => {
+    setFeedback({ section, type, message });
+    setTimeout(() => setFeedback(null), 3000);
+  };
+
+  const handleSaveInfo = async () => {
+    setSavingInfo(true);
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: salon.name,
+          email: salon.email,
+          phone: salon.phone,
+          address: salon.address,
+          city: salon.city,
+          country: salon.country,
+          timezone: salon.timezone,
+          description: salon.description,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to save");
+      showFeedback("info", "success", "Saved!");
+    } catch {
+      showFeedback("info", "error", "Failed to save. Please try again.");
+    } finally {
+      setSavingInfo(false);
+    }
+  };
+
+  const handleSaveHours = async () => {
+    setSavingHours(true);
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          openTime: hours.mon.open,
+          closeTime: hours.mon.close,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to save");
+      showFeedback("hours", "success", "Saved!");
+    } catch {
+      showFeedback("hours", "error", "Failed to save. Please try again.");
+    } finally {
+      setSavingHours(false);
+    }
+  };
+
+  const handleSaveBooking = async () => {
+    setSavingBooking(true);
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          currency: booking.currency,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to save");
+      showFeedback("booking", "success", "Saved!");
+    } catch {
+      showFeedback("booking", "error", "Failed to save. Please try again.");
+    } finally {
+      setSavingBooking(false);
+    }
+  };
 
   const slug = salon.name.toLowerCase().replace(/\s+/g, "-");
   const bookingUrl =
@@ -99,6 +218,29 @@ export default function SettingsPage() {
     }));
   };
 
+  const FeedbackBadge = ({ section }: { section: string }) => {
+    if (!feedback || feedback.section !== section) return null;
+    return (
+      <span
+        className={`ml-3 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+          feedback.type === "success"
+            ? "bg-green-100 text-green-700"
+            : "bg-red-100 text-red-700"
+        }`}
+      >
+        {feedback.message}
+      </span>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -119,6 +261,7 @@ export default function SettingsPage() {
           <h2 className="text-lg font-semibold text-gray-900">
             Salon Information
           </h2>
+          <FeedbackBadge section="info" />
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
@@ -225,9 +368,17 @@ export default function SettingsPage() {
           </div>
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="btn-primary inline-flex items-center gap-2">
-            <CheckCircle className="h-4 w-4" />
-            Save Information
+          <button
+            onClick={handleSaveInfo}
+            disabled={savingInfo}
+            className="btn-primary inline-flex items-center gap-2 disabled:opacity-50"
+          >
+            {savingInfo ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4" />
+            )}
+            {savingInfo ? "Saving..." : "Save Information"}
           </button>
         </div>
       </div>
@@ -239,6 +390,7 @@ export default function SettingsPage() {
           <h2 className="text-lg font-semibold text-gray-900">
             Business Hours
           </h2>
+          <FeedbackBadge section="hours" />
         </div>
         <div className="space-y-3">
           {DAYS.map((day) => (
@@ -285,9 +437,17 @@ export default function SettingsPage() {
           ))}
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="btn-primary inline-flex items-center gap-2">
-            <CheckCircle className="h-4 w-4" />
-            Save Hours
+          <button
+            onClick={handleSaveHours}
+            disabled={savingHours}
+            className="btn-primary inline-flex items-center gap-2 disabled:opacity-50"
+          >
+            {savingHours ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4" />
+            )}
+            {savingHours ? "Saving..." : "Save Hours"}
           </button>
         </div>
       </div>
@@ -299,6 +459,7 @@ export default function SettingsPage() {
           <h2 className="text-lg font-semibold text-gray-900">
             Booking Settings
           </h2>
+          <FeedbackBadge section="booking" />
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
@@ -355,9 +516,17 @@ export default function SettingsPage() {
           </div>
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="btn-primary inline-flex items-center gap-2">
-            <CheckCircle className="h-4 w-4" />
-            Save Booking Settings
+          <button
+            onClick={handleSaveBooking}
+            disabled={savingBooking}
+            className="btn-primary inline-flex items-center gap-2 disabled:opacity-50"
+          >
+            {savingBooking ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4" />
+            )}
+            {savingBooking ? "Saving..." : "Save Booking Settings"}
           </button>
         </div>
       </div>

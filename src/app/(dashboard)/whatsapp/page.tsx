@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MessageSquare,
   Send,
@@ -11,6 +11,7 @@ import {
   Zap,
   Eye,
   EyeOff,
+  Loader2,
 } from "lucide-react";
 
 const MESSAGE_TEMPLATES = [
@@ -52,11 +53,122 @@ export default function WhatsAppPage() {
     sendFollowUps: false,
   });
 
+  const [loading, setLoading] = useState(true);
+  const [savingConfig, setSavingConfig] = useState(false);
+  const [savingAutomations, setSavingAutomations] = useState(false);
+  const [feedback, setFeedback] = useState<{ section: string; type: "success" | "error"; message: string } | null>(null);
+
+  // Fetch existing config on mount
+  useEffect(() => {
+    async function fetchConfig() {
+      try {
+        const res = await fetch("/api/whatsapp/config");
+        if (!res.ok) throw new Error("Failed to fetch config");
+        const data = await res.json();
+        if (data.config) {
+          const c = data.config;
+          setConfig({
+            phoneNumberId: c.phoneNumberId || "",
+            businessAccountId: c.businessId || "",
+            accessToken: c.accessToken || "",
+            verifyToken: c.verifyToken || "",
+          });
+          setAutomations({
+            autoConfirm: c.autoConfirm ?? false,
+            sendReminders: c.isActive ?? true,
+            reminderHours: String(c.reminderHours ?? 24),
+            sendReviewRequests: false,
+            sendFollowUps: c.followUpHours > 0,
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching WhatsApp config:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchConfig();
+  }, []);
+
+  const showFeedback = (section: string, type: "success" | "error", message: string) => {
+    setFeedback({ section, type, message });
+    setTimeout(() => setFeedback(null), 3000);
+  };
+
+  const buildPayload = () => ({
+    phoneNumberId: config.phoneNumberId,
+    businessAccountId: config.businessAccountId,
+    accessToken: config.accessToken,
+    verifyToken: config.verifyToken,
+    autoConfirm: automations.autoConfirm,
+    sendReminders: automations.sendReminders,
+    reminderHours: automations.reminderHours,
+    sendReviewRequests: automations.sendReviewRequests,
+    sendFollowUps: automations.sendFollowUps,
+  });
+
+  const handleSaveConfig = async () => {
+    setSavingConfig(true);
+    try {
+      const res = await fetch("/api/whatsapp/config", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildPayload()),
+      });
+      if (!res.ok) throw new Error("Failed to save");
+      showFeedback("config", "success", "Saved!");
+    } catch {
+      showFeedback("config", "error", "Failed to save. Please try again.");
+    } finally {
+      setSavingConfig(false);
+    }
+  };
+
+  const handleSaveAutomations = async () => {
+    setSavingAutomations(true);
+    try {
+      const res = await fetch("/api/whatsapp/config", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildPayload()),
+      });
+      if (!res.ok) throw new Error("Failed to save");
+      showFeedback("automations", "success", "Saved!");
+    } catch {
+      showFeedback("automations", "error", "Failed to save. Please try again.");
+    } finally {
+      setSavingAutomations(false);
+    }
+  };
+
   const isConfigured =
     config.phoneNumberId &&
     config.businessAccountId &&
     config.accessToken &&
     config.verifyToken;
+
+  const FeedbackBadge = ({ section }: { section: string }) => {
+    if (!feedback || feedback.section !== section) return null;
+    return (
+      <span
+        className={`ml-3 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+          feedback.type === "success"
+            ? "bg-green-100 text-green-700"
+            : "bg-red-100 text-red-700"
+        }`}
+      >
+        {feedback.message}
+      </span>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="h-8 w-8 animate-spin text-green-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -81,6 +193,7 @@ export default function WhatsAppPage() {
             <h2 className="text-lg font-semibold text-gray-900">
               Configuration
             </h2>
+            <FeedbackBadge section="config" />
           </div>
           <span
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${
@@ -171,9 +284,17 @@ export default function WhatsAppPage() {
         </div>
 
         <div className="mt-4 flex justify-end">
-          <button className="btn-primary inline-flex items-center gap-2">
-            <CheckCircle className="h-4 w-4" />
-            Save Config
+          <button
+            onClick={handleSaveConfig}
+            disabled={savingConfig}
+            className="btn-primary inline-flex items-center gap-2 disabled:opacity-50"
+          >
+            {savingConfig ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4" />
+            )}
+            {savingConfig ? "Saving..." : "Save Config"}
           </button>
         </div>
       </div>
@@ -248,6 +369,7 @@ export default function WhatsAppPage() {
           <h2 className="text-lg font-semibold text-gray-900">
             Automation Settings
           </h2>
+          <FeedbackBadge section="automations" />
         </div>
         <div className="space-y-5">
           {/* Auto-confirm bookings */}
@@ -389,6 +511,20 @@ export default function WhatsAppPage() {
               />
             </button>
           </div>
+        </div>
+        <div className="mt-6 flex justify-end">
+          <button
+            onClick={handleSaveAutomations}
+            disabled={savingAutomations}
+            className="btn-primary inline-flex items-center gap-2 disabled:opacity-50"
+          >
+            {savingAutomations ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4" />
+            )}
+            {savingAutomations ? "Saving..." : "Save Automations"}
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatTime } from "@/lib/utils";
+import { formatTime, addMinutesToTime } from "@/lib/utils";
 import {
   Calendar,
   Filter,
@@ -10,6 +10,8 @@ import {
   Clock,
   Loader2,
   RefreshCw,
+  Plus,
+  X,
 } from "lucide-react";
 
 interface Appointment {
@@ -22,6 +24,25 @@ interface Appointment {
   client: { id: string; firstName: string; lastName: string; email: string };
   service: { id: string; name: string };
   staff: { id: string; firstName: string; lastName: string };
+}
+
+interface ClientOption {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface ServiceOption {
+  id: string;
+  name: string;
+  duration: number;
+  price: number;
+}
+
+interface StaffOption {
+  id: string;
+  firstName: string;
+  lastName: string;
 }
 
 const STATUS_TABS = [
@@ -47,6 +68,24 @@ export default function AppointmentsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("ALL");
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
+  // New appointment form state
+  const [showForm, setShowForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [clients, setClients] = useState<ClientOption[]>([]);
+  const [services, setServices] = useState<ServiceOption[]>([]);
+  const [staff, setStaff] = useState<StaffOption[]>([]);
+  const [formLoading, setFormLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    clientId: "",
+    serviceId: "",
+    staffId: "",
+    date: "",
+    startTime: "",
+    endTime: "",
+    price: "",
+    notes: "",
+  });
+
   const fetchAppointments = async () => {
     setLoading(true);
     try {
@@ -65,6 +104,105 @@ export default function AppointmentsPage() {
   useEffect(() => {
     fetchAppointments();
   }, []);
+
+  const fetchFormOptions = async () => {
+    setFormLoading(true);
+    try {
+      const [clientsRes, servicesRes, staffRes] = await Promise.all([
+        fetch("/api/clients"),
+        fetch("/api/services"),
+        fetch("/api/staff"),
+      ]);
+      if (clientsRes.ok) {
+        const data = await clientsRes.json();
+        setClients(data.clients || []);
+      }
+      if (servicesRes.ok) {
+        const data = await servicesRes.json();
+        setServices(data.services || []);
+      }
+      if (staffRes.ok) {
+        const data = await staffRes.json();
+        setStaff(data.staff || []);
+      }
+    } catch (error) {
+      console.error("Failed to fetch form options:", error);
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleOpenForm = () => {
+    setShowForm(true);
+    fetchFormOptions();
+  };
+
+  const handleServiceChange = (serviceId: string) => {
+    const service = services.find((s) => s.id === serviceId);
+    if (service) {
+      const endTime =
+        formData.startTime
+          ? addMinutesToTime(formData.startTime, service.duration)
+          : "";
+      setFormData({
+        ...formData,
+        serviceId,
+        price: service.price.toString(),
+        endTime,
+      });
+    } else {
+      setFormData({ ...formData, serviceId, price: "", endTime: "" });
+    }
+  };
+
+  const handleStartTimeChange = (startTime: string) => {
+    const service = services.find((s) => s.id === formData.serviceId);
+    const endTime =
+      service && startTime
+        ? addMinutesToTime(startTime, service.duration)
+        : "";
+    setFormData({ ...formData, startTime, endTime });
+  };
+
+  const handleCreateAppointment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId: formData.clientId,
+          serviceId: formData.serviceId,
+          staffId: formData.staffId,
+          date: formData.date,
+          startTime: formData.startTime,
+          endTime: formData.endTime,
+          price: parseFloat(formData.price),
+          notes: formData.notes || undefined,
+          source: "WALK_IN",
+        }),
+      });
+      if (res.ok) {
+        setFormData({
+          clientId: "",
+          serviceId: "",
+          staffId: "",
+          date: "",
+          startTime: "",
+          endTime: "",
+          price: "",
+          notes: "",
+        });
+        setShowForm(false);
+        fetchAppointments();
+      }
+    } catch (error) {
+      console.error("Failed to create appointment:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const updateStatus = async (id: string, status: string) => {
     setUpdatingId(id);
@@ -163,14 +301,198 @@ export default function AppointmentsPage() {
             Manage and track all salon appointments.
           </p>
         </div>
-        <button
-          onClick={fetchAppointments}
-          className="btn-secondary flex items-center gap-2"
-        >
-          <RefreshCw className="w-4 h-4" />
-          Refresh
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={fetchAppointments}
+            className="btn-secondary flex items-center gap-2"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Refresh
+          </button>
+          <button
+            onClick={() => (showForm ? setShowForm(false) : handleOpenForm())}
+            className="btn-primary flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            New Appointment
+          </button>
+        </div>
       </div>
+
+      {/* New Appointment Form */}
+      {showForm && (
+        <div className="card">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">
+              New Appointment
+            </h2>
+            <button
+              onClick={() => setShowForm(false)}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          {formLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+              <span className="ml-2 text-gray-500">Loading options...</span>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleCreateAppointment}
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+            >
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Client
+                </label>
+                <select
+                  required
+                  value={formData.clientId}
+                  onChange={(e) =>
+                    setFormData({ ...formData, clientId: e.target.value })
+                  }
+                  className="input-field"
+                >
+                  <option value="">Select a client</option>
+                  {clients.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.firstName} {c.lastName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Service
+                </label>
+                <select
+                  required
+                  value={formData.serviceId}
+                  onChange={(e) => handleServiceChange(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="">Select a service</option>
+                  {services.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name} ({s.duration} min - ${s.price})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Staff
+                </label>
+                <select
+                  required
+                  value={formData.staffId}
+                  onChange={(e) =>
+                    setFormData({ ...formData, staffId: e.target.value })
+                  }
+                  className="input-field"
+                >
+                  <option value="">Select staff</option>
+                  {staff.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.firstName} {s.lastName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  required
+                  value={formData.date}
+                  onChange={(e) =>
+                    setFormData({ ...formData, date: e.target.value })
+                  }
+                  className="input-field"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Start Time
+                </label>
+                <input
+                  type="time"
+                  required
+                  value={formData.startTime}
+                  onChange={(e) => handleStartTimeChange(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  End Time
+                </label>
+                <input
+                  type="time"
+                  required
+                  value={formData.endTime}
+                  onChange={(e) =>
+                    setFormData({ ...formData, endTime: e.target.value })
+                  }
+                  className="input-field"
+                  readOnly
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Price ($)
+                </label>
+                <input
+                  type="number"
+                  required
+                  step="0.01"
+                  min="0"
+                  value={formData.price}
+                  onChange={(e) =>
+                    setFormData({ ...formData, price: e.target.value })
+                  }
+                  className="input-field"
+                  placeholder="0.00"
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Notes (optional)
+                </label>
+                <textarea
+                  value={formData.notes}
+                  onChange={(e) =>
+                    setFormData({ ...formData, notes: e.target.value })
+                  }
+                  className="input-field"
+                  rows={3}
+                  placeholder="Any special requests or notes..."
+                />
+              </div>
+              <div className="flex gap-3 sm:col-span-2">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary"
+                >
+                  {submitting ? "Creating..." : "Create Appointment"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="btn-secondary"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      )}
 
       {/* Status Filter Tabs */}
       <div className="flex items-center gap-1 border-b border-gray-200">
