@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       salon.reviews.length > 0
         ? salon.reviews.reduce((sum, r) => sum + r.rating, 0) / salon.reviews.length
         : 0;
-    const categories = [...new Set(salon.services.map((s) => s.category).filter(Boolean))];
+    const categories = Array.from(new Set(salon.services.map((s) => s.category).filter(Boolean)));
     const priceRange =
       salon.services.length > 0
         ? {

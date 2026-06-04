@@ -73,5 +73,12 @@ export async function PATCH(req: NextRequest) {
     );
   }
 
+  if (newStatus === "COMPLETED") {
+    await createNotification(
+      session.salonId, "REVIEW_REQUEST", "Send Review Request",
+      `${appointment.client.firstName}'s appointment is complete. Send a feedback request to collect a review.`
+    );
+  }
+
   return NextResponse.json({ appointment });
 }
