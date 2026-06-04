@@ -4,7 +4,11 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2
+      text-sm font-semibold text-white shadow-sm transition-all duration-200
+      hover:bg-brand-700 hover:shadow-md active:scale-[0.98]
+      focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm disabled:active:scale-100;
   }
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
@@ -13,9 +17,55 @@
     @apply inline-flex items-center justify-center rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700;
   }
   .input-field {
-    @apply block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm placeholder-gray-400 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
+    @apply w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900
+      transition-all duration-200
+      placeholder:text-gray-400
+      focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
   }
   .card {
-    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-sm;
+    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200;
+  }
+  .skeleton {
+    @apply animate-pulse rounded bg-gray-200;
+  }
+  .toast {
+    @apply fixed bottom-4 right-4 z-50 rounded-lg px-4 py-3 text-sm font-medium shadow-lg
+      transition-all duration-300;
+  }
+  .toast-success {
+    @apply bg-green-600 text-white;
+  }
+  .toast-error {
+    @apply bg-red-600 text-white;
+  }
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20;
   }
 }
+
+/* --- Animations --- */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); max-height: 0; }
+  to { opacity: 1; transform: translateY(0); max-height: 1000px; }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* --- Custom scrollbar --- */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-gray-400; }

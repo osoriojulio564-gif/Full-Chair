@@ -23,6 +23,12 @@ model Salon {
   openTime    String   @default("09:00")
   closeTime   String   @default("18:00")
   currency    String   @default("USD")
+  plan        String   @default("STARTER")
+  brandColor  String?  @default("#9333ea")
+  tagline     String?
+  heroImage   String?
+  gallery     String?  @default("")
+  googlePlaceId String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

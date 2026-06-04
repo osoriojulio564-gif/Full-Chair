@@ -19,6 +19,10 @@ async function main() {
       city: "Miami",
       country: "US",
       description: "Premium beauty salon in the heart of Miami",
+      plan: "PREMIUM",
+      brandColor: "#9333ea",
+      tagline: "Where beauty meets excellence",
+      googlePlaceId: "",
     },
   });
 
