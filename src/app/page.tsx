@@ -30,6 +30,7 @@ export default function LandingPage() {
               <span className="text-xl font-bold text-gray-900">Full Chair</span>
             </div>
             <div className="flex items-center gap-4">
+              <Link href="/explore" className="text-sm font-medium text-gray-600 hover:text-gray-900">Find a Salon</Link>
               <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900">Log in</Link>
               <Link href="/register" className="btn-primary">Get Started</Link>
             </div>

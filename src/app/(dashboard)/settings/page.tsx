@@ -46,6 +46,7 @@ interface BusinessHours {
 export default function SettingsPage() {
   const [salon, setSalon] = useState({
     name: "",
+    slug: "",
     email: "",
     phone: "",
     address: "",
@@ -53,6 +54,7 @@ export default function SettingsPage() {
     country: "",
     description: "",
     timezone: "America/New_York",
+    plan: "STARTER",
   });
 
   const [hours, setHours] = useState<Record<string, BusinessHours>>({
@@ -566,6 +568,26 @@ export default function SettingsPage() {
             )}
           </button>
         </div>
+        {salon.plan === "PREMIUM" && (
+          <div className="mt-4">
+            <p className="text-sm text-gray-500 mb-2">Your premium branded salon page:</p>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5">
+                <code className="text-sm text-gray-700 break-all">
+                  {typeof window !== "undefined" ? `${window.location.origin}/salon/${salon.slug}` : `/salon/${salon.slug}`}
+                </code>
+              </div>
+              <a
+                href={`/salon/${salon.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex items-center gap-2 whitespace-nowrap"
+              >
+                View Page
+              </a>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Danger Zone */}
