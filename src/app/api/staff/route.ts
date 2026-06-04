@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession, hashPassword } from "@/lib/auth";
+import { createNotification } from "@/lib/notifications";
 
 export async function GET() {
   const session = await getSession();
@@ -46,6 +47,11 @@ export async function POST(req: NextRequest) {
         data: { staffId: member.id, dayOfWeek: d, startTime: "09:00", endTime: "18:00" },
       })
     )
+  );
+
+  await createNotification(
+    session.salonId, "NEW_STAFF", "New Staff Member",
+    `${member.firstName} ${member.lastName} was added as ${member.role}`
   );
 
   return NextResponse.json({ staff: member }, { status: 201 });

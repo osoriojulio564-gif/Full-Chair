@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { createNotification } from "@/lib/notifications";
 
 export async function GET() {
   const session = await getSession();
@@ -38,6 +39,12 @@ export async function POST(req: NextRequest) {
       comment,
     },
   });
+
+  const client = await prisma.client.findUnique({ where: { id: apt.clientId }, select: { firstName: true } });
+  await createNotification(
+    apt.salonId, "NEW_REVIEW", "New Review",
+    `${client?.firstName || "A client"} left a ${rating}-star review`
+  );
 
   return NextResponse.json({ review }, { status: 201 });
 }

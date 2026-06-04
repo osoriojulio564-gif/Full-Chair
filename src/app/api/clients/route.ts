@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { createNotification } from "@/lib/notifications";
 
 export async function GET(req: NextRequest) {
   const session = await getSession();
@@ -37,6 +38,11 @@ export async function POST(req: NextRequest) {
   const client = await prisma.client.create({
     data: { salonId: session.salonId, ...body },
   });
+
+  await createNotification(
+    session.salonId, "NEW_CLIENT", "New Client",
+    `${client.firstName} ${client.lastName} was added to your client list`
+  );
 
   return NextResponse.json({ client }, { status: 201 });
 }
