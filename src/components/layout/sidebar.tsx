@@ -30,8 +30,8 @@ export default function Sidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-gray-200 bg-white">
       <div className="flex h-16 items-center gap-2 border-b border-gray-200 px-6">
-        <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700" />
-        <span className="text-lg font-bold text-gray-900">Full Chair</span>
+        <div className="h-8 w-8 rounded-sm bg-brand-600" />
+        <span className="font-heading text-lg font-medium text-charcoal">Full Chair</span>
       </div>
       <nav className="flex-1 overflow-y-auto p-4 space-y-1">
         {navItems.map((item) => {
@@ -39,8 +39,8 @@ export default function Sidebar() {
           return (
             <Link key={item.href} href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                isActive ? "bg-brand-50 text-brand-700" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                "flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium transition-colors",
+                isActive ? "bg-brand-50 text-brand-700" : "text-gray-600 hover:bg-gray-50 hover:text-charcoal"
               )}>
               <item.icon className={cn("h-5 w-5", isActive ? "text-brand-600" : "text-gray-400")} />
               {item.label}
@@ -50,8 +50,8 @@ export default function Sidebar() {
       </nav>
       <div className="border-t border-gray-200 p-4">
         <button onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50">
-          <LogOut className="h-5 w-5 text-gray-400" /> Sign Out
+          className="flex w-full items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50">
+          <LogOut className="h-5 w-5" /> Sign Out
         </button>
       </div>
     </aside>

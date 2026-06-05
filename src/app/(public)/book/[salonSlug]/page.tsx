@@ -262,14 +262,14 @@ export default function BookingPage() {
   // Success state
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-cream flex flex-col">
         <Header salonName={salon?.name} />
         <div className="flex-1 flex items-center justify-center px-4">
-          <div className="card max-w-md w-full text-center py-12">
+          <div className="card shadow-warm max-w-md w-full text-center py-12">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100 animate-bounce">
               <Check className="h-10 w-10 text-green-600" />
             </div>
-            <h2 className="mt-6 text-2xl font-bold text-gray-900">
+            <h2 className="mt-6 text-2xl font-heading font-medium text-charcoal">
               Booking Confirmed!
             </h2>
             <p className="mt-3 text-gray-600">
@@ -296,7 +296,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-cream flex flex-col">
       <Header salonName={salon?.name} />
 
       {/* Progress bar */}
@@ -333,7 +333,7 @@ export default function BookingPage() {
 
       <div className="flex-1 mx-auto max-w-2xl w-full px-4 py-8">
         {error && (
-          <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 text-sm text-red-700">
+          <div className="mb-6 rounded-sm bg-red-50 border border-red-200 p-4 text-sm text-red-700">
             {error}
           </div>
         )}
@@ -351,7 +351,7 @@ export default function BookingPage() {
         {/* ---- Step 1: Pick Service ---- */}
         {step === 1 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-xl font-heading font-medium text-charcoal flex items-center gap-2">
               <Scissors className="h-5 w-5 text-brand-600" />
               Choose a Service
             </h2>
@@ -379,12 +379,12 @@ export default function BookingPage() {
                       <div
                         className="h-10 w-10 rounded-lg flex items-center justify-center"
                         style={{
-                          backgroundColor: (s.color || "#d946ef") + "20",
+                          backgroundColor: (s.color || "#B5604F") + "20",
                         }}
                       >
                         <Scissors
                           className="h-5 w-5"
-                          style={{ color: s.color || "#d946ef" }}
+                          style={{ color: s.color || "#B5604F" }}
                         />
                       </div>
                       <div>
@@ -408,7 +408,7 @@ export default function BookingPage() {
         {/* ---- Step 2: Pick Date ---- */}
         {step === 2 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-xl font-heading font-medium text-charcoal flex items-center gap-2">
               <Calendar className="h-5 w-5 text-brand-600" />
               Pick a Date
             </h2>
@@ -425,7 +425,7 @@ export default function BookingPage() {
                 <button
                   key={d.iso}
                   onClick={() => handleDateSelect(d.iso)}
-                  className={`flex flex-col items-center rounded-xl border-2 px-2 py-3 transition-all hover:shadow-md ${
+                  className={`flex flex-col items-center rounded-sm border-2 px-2 py-3 transition-all hover:shadow-warm-sm ${
                     selectedDate === d.iso
                       ? "border-brand-600 bg-brand-50"
                       : "border-gray-200 bg-white hover:border-brand-300"
@@ -447,7 +447,7 @@ export default function BookingPage() {
         {/* ---- Step 3: Pick Time Slot ---- */}
         {step === 3 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-xl font-heading font-medium text-charcoal flex items-center gap-2">
               <Clock className="h-5 w-5 text-brand-600" />
               Pick a Time
             </h2>
@@ -504,7 +504,7 @@ export default function BookingPage() {
         {/* ---- Step 4: Contact Details + Confirm ---- */}
         {step === 4 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-xl font-heading font-medium text-charcoal flex items-center gap-2">
               <User className="h-5 w-5 text-brand-600" />
               Your Details
             </h2>
@@ -515,7 +515,7 @@ export default function BookingPage() {
             </p>
 
             {/* Summary card */}
-            <div className="mt-6 rounded-xl bg-brand-50 border border-brand-200 p-4">
+            <div className="mt-6 rounded-sm bg-brand-50 border border-brand-200 p-4">
               <div className="flex items-center justify-between text-sm">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 text-gray-700">
@@ -650,9 +650,9 @@ export default function BookingPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-400">
+      <footer className="border-t border-gray-200 bg-cream py-4 text-center text-xs text-charcoal/40">
         Powered by{" "}
-        <span className="font-semibold text-gray-600">Full Chair</span>
+        <span className="font-semibold text-charcoal/60">Full Chair</span>
       </footer>
     </div>
   );
@@ -667,14 +667,14 @@ function Header({ salonName }: { salonName?: string }) {
     <header className="bg-gradient-to-r from-brand-600 to-brand-800 text-white">
       <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white/20 backdrop-blur-sm">
             <Scissors className="h-5 w-5 text-white" />
           </div>
           <div>
             <div className="text-xs font-medium text-brand-200">
               Book an Appointment
             </div>
-            <h1 className="text-xl font-bold">
+            <h1 className="text-xl font-heading font-medium">
               {salonName || "Loading..."}
             </h1>
           </div>

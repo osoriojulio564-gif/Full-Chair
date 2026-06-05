@@ -111,7 +111,7 @@ export default function StaffPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <UserCog className="h-7 w-7 text-indigo-600" />
-          <h1 className="text-2xl font-bold text-gray-900">Staff</h1>
+          <h1 className="text-2xl font-heading font-medium text-charcoal">Staff</h1>
           <span className="rounded-full bg-indigo-100 px-3 py-0.5 text-sm font-medium text-indigo-700">
             {staff.length}
           </span>
@@ -129,7 +129,7 @@ export default function StaffPage() {
       {showForm && (
         <div className="card">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">New Staff Member</h2>
+            <h2 className="text-lg font-heading font-medium text-charcoal">New Staff Member</h2>
             <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600">
               <X className="h-5 w-5" />
             </button>
@@ -245,7 +245,7 @@ export default function StaffPage() {
             <Link
               key={member.id}
               href={`/staff/${member.id}`}
-              className="card transition-shadow hover:shadow-md"
+              className="card transition-shadow hover:shadow-warm"
             >
               <div className="mb-3 flex items-start gap-3">
                 {/* Avatar */}
@@ -254,7 +254,7 @@ export default function StaffPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="truncate text-lg font-semibold text-gray-900">
+                    <h3 className="truncate text-lg font-heading font-medium text-charcoal">
                       {member.firstName} {member.lastName}
                     </h3>
                     {!member.isActive && (

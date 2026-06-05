@@ -90,6 +90,7 @@ export default function SettingsPage() {
         const s = data.salon;
         setSalon({
           name: s.name || "",
+          slug: s.slug || "",
           email: s.email || "",
           phone: s.phone || "",
           address: s.address || "",
@@ -97,6 +98,7 @@ export default function SettingsPage() {
           country: s.country || "",
           description: s.description || "",
           timezone: s.timezone || "America/New_York",
+          plan: s.plan || "STARTER",
         });
         // Populate hours from salon defaults
         setHours((prev) => {
@@ -249,7 +251,7 @@ export default function SettingsPage() {
       <div className="flex items-center gap-3">
         <Settings className="h-7 w-7 text-indigo-600" />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Salon Settings</h1>
+          <h1 className="text-2xl font-heading font-medium text-charcoal">Salon Settings</h1>
           <p className="text-sm text-gray-500">
             Manage your salon information and preferences
           </p>
@@ -260,7 +262,7 @@ export default function SettingsPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-6">
           <Settings className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Salon Information
           </h2>
           <FeedbackBadge section="info" />
@@ -389,7 +391,7 @@ export default function SettingsPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-6">
           <Clock className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Business Hours
           </h2>
           <FeedbackBadge section="hours" />
@@ -458,7 +460,7 @@ export default function SettingsPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-6">
           <Globe className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Booking Settings
           </h2>
           <FeedbackBadge section="booking" />
@@ -537,7 +539,7 @@ export default function SettingsPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-4">
           <Link className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Public Booking Page
           </h2>
         </div>
@@ -594,7 +596,7 @@ export default function SettingsPage() {
       <div className="rounded-xl border-2 border-red-200 bg-red-50/50 p-6">
         <div className="flex items-center gap-2 mb-4">
           <Trash2 className="h-5 w-5 text-red-600" />
-          <h2 className="text-lg font-semibold text-red-900">Danger Zone</h2>
+          <h2 className="text-lg font-heading font-medium text-red-900">Danger Zone</h2>
         </div>
         <p className="text-sm text-red-700 mb-4">
           Permanently delete your salon and all associated data. This action

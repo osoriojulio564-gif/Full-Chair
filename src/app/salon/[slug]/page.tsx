@@ -98,7 +98,7 @@ function hexToRgb(hex: string) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
-    : "147, 51, 234";
+    : "181, 96, 79";
 }
 
 function renderStars(rating: number) {
@@ -158,10 +158,10 @@ export default function SalonPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
-          <Loader2 className="h-10 w-10 animate-spin text-purple-600 mx-auto" />
-          <p className="mt-4 text-gray-500 text-sm">Loading salon...</p>
+          <Loader2 className="h-10 w-10 animate-spin text-brand-600 mx-auto" />
+          <p className="mt-4 text-charcoal/50 text-sm">Loading salon...</p>
         </div>
       </div>
     );
@@ -169,13 +169,13 @@ export default function SalonPage() {
 
   if (error || !salon) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center max-w-md px-4">
-          <Scissors className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900">
+          <Scissors className="h-12 w-12 text-charcoal/30 mx-auto mb-4" />
+          <h1 className="text-2xl font-heading font-medium text-charcoal">
             {error || "Salon not found"}
           </h1>
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-charcoal/50">
             The salon page you are looking for does not exist or is unavailable.
           </p>
         </div>
@@ -183,7 +183,7 @@ export default function SalonPage() {
     );
   }
 
-  const brandColor = salon.brandColor || "#9333ea";
+  const brandColor = salon.brandColor || "#B5604F";
   const brandRgb = hexToRgb(brandColor);
   const bookUrl = `/book/${slug}`;
 
@@ -198,7 +198,7 @@ export default function SalonPage() {
   }, {});
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       {/* ============================================================ */}
       {/*  HERO SECTION                                                 */}
       {/* ============================================================ */}
@@ -228,14 +228,14 @@ export default function SalonPage() {
           <div className="flex flex-col items-center text-center">
             {/* Logo / Initials */}
             <div
-              className="flex h-24 w-24 items-center justify-center rounded-2xl shadow-2xl mb-8"
+              className="flex h-24 w-24 items-center justify-center rounded-sm shadow-warm mb-8"
               style={{
                 backgroundColor: "rgba(255, 255, 255, 0.2)",
                 backdropFilter: "blur(12px)",
                 border: "2px solid rgba(255, 255, 255, 0.3)",
               }}
             >
-              <span className="text-3xl font-black text-white tracking-tight">
+              <span className="text-3xl font-heading font-medium text-white tracking-tight">
                 {salon.name
                   .split(" ")
                   .map((w) => w[0])
@@ -246,7 +246,7 @@ export default function SalonPage() {
             </div>
 
             {/* Salon name */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-medium text-white tracking-tight leading-tight">
               {salon.name}
             </h1>
 
@@ -263,7 +263,7 @@ export default function SalonPage() {
                 <div className="flex items-center gap-1">
                   {renderStars(salon.avgRating)}
                 </div>
-                <span className="text-white font-bold text-lg">
+                <span className="text-white font-medium text-lg">
                   {salon.avgRating}
                 </span>
                 <span className="text-white/70 text-sm">
@@ -288,7 +288,7 @@ export default function SalonPage() {
             {/* CTA */}
             <a
               href={bookUrl}
-              className="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold shadow-xl transition-all hover:shadow-2xl hover:scale-105 active:scale-100"
+              className="mt-10 inline-flex items-center gap-2 rounded-sm bg-white px-8 py-4 text-base font-medium shadow-warm transition-all hover:shadow-warm hover:scale-105 active:scale-100"
               style={{ color: brandColor }}
             >
               <Calendar className="h-5 w-5" />
@@ -308,7 +308,7 @@ export default function SalonPage() {
           >
             <path
               d="M0 80L48 74.7C96 69 192 59 288 48C384 37 480 27 576 32C672 37 768 59 864 64C960 69 1056 59 1152 48C1248 37 1344 27 1392 21.3L1440 16V80H0Z"
-              fill="white"
+              fill="#FAF7F4"
             />
           </svg>
         </div>
@@ -317,11 +317,11 @@ export default function SalonPage() {
       {/* ============================================================ */}
       {/*  SERVICES SECTION                                             */}
       {/* ============================================================ */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-16 sm:py-24 bg-cream">
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-12">
             <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-4"
+              className="inline-flex items-center gap-2 rounded-sm px-4 py-1.5 text-sm font-semibold mb-4"
               style={{
                 backgroundColor: `rgba(${brandRgb}, 0.1)`,
                 color: brandColor,
@@ -330,10 +330,10 @@ export default function SalonPage() {
               <Sparkles className="h-4 w-4" />
               Our Services
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-heading font-medium text-charcoal tracking-tight">
               What We Offer
             </h2>
-            <p className="mt-3 text-gray-500 max-w-xl mx-auto">
+            <p className="mt-3 text-charcoal/50 max-w-xl mx-auto">
               Browse our complete menu of beauty and grooming services.
             </p>
           </div>
@@ -350,12 +350,12 @@ export default function SalonPage() {
                 {services.map((service) => (
                   <div
                     key={service.id}
-                    className="group relative rounded-2xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                    className="group relative rounded-sm border border-gray-100 bg-white p-6 shadow-warm-sm hover:shadow-warm transition-all duration-300 hover:-translate-y-1"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-3">
                         <div
-                          className="mt-0.5 h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                          className="mt-0.5 h-10 w-10 rounded-sm flex items-center justify-center flex-shrink-0"
                           style={{
                             backgroundColor: `${service.color || brandColor}18`,
                           }}
@@ -366,7 +366,7 @@ export default function SalonPage() {
                           />
                         </div>
                         <div>
-                          <h4 className="font-bold text-gray-900">
+                          <h4 className="font-heading font-medium text-charcoal">
                             {service.name}
                           </h4>
                           <div className="mt-1 flex items-center gap-2 text-sm text-gray-500">
@@ -377,7 +377,7 @@ export default function SalonPage() {
                       </div>
                       <div className="text-right">
                         <span
-                          className="text-lg font-black"
+                          className="text-lg font-medium"
                           style={{ color: brandColor }}
                         >
                           {formatPrice(service.price, salon.currency)}
@@ -386,7 +386,7 @@ export default function SalonPage() {
                     </div>
                     <a
                       href={bookUrl}
-                      className="mt-4 flex items-center justify-center gap-2 w-full rounded-xl py-2.5 text-sm font-semibold transition-all opacity-0 group-hover:opacity-100 text-white"
+                      className="mt-4 flex items-center justify-center gap-2 w-full rounded-sm py-2.5 text-sm font-semibold transition-all opacity-0 group-hover:opacity-100 text-white"
                       style={{ backgroundColor: brandColor }}
                     >
                       Book Now
@@ -411,7 +411,7 @@ export default function SalonPage() {
           <div className="mx-auto max-w-6xl px-4">
             <div className="text-center mb-12">
               <div
-                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-4"
+                className="inline-flex items-center gap-2 rounded-sm px-4 py-1.5 text-sm font-semibold mb-4"
                 style={{
                   backgroundColor: `rgba(${brandRgb}, 0.1)`,
                   color: brandColor,
@@ -420,10 +420,10 @@ export default function SalonPage() {
                 <Users className="h-4 w-4" />
                 Our Team
               </div>
-              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-heading font-medium text-charcoal tracking-tight">
                 Meet the Experts
               </h2>
-              <p className="mt-3 text-gray-500 max-w-xl mx-auto">
+              <p className="mt-3 text-charcoal/50 max-w-xl mx-auto">
                 Our talented team is here to make you look and feel your best.
               </p>
             </div>
@@ -432,7 +432,7 @@ export default function SalonPage() {
               {salon.staff.map((member) => (
                 <div
                   key={member.id}
-                  className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                  className="rounded-sm bg-white border border-gray-100 shadow-warm-sm overflow-hidden hover:shadow-warm transition-all duration-300 hover:-translate-y-1"
                 >
                   <div
                     className="h-3"
@@ -443,7 +443,7 @@ export default function SalonPage() {
                   <div className="p-6 text-center">
                     {/* Avatar */}
                     <div
-                      className="mx-auto flex h-20 w-20 items-center justify-center rounded-full text-white text-2xl font-black shadow-lg"
+                      className="mx-auto flex h-20 w-20 items-center justify-center rounded-full text-white text-2xl font-medium shadow-warm"
                       style={{
                         background: `linear-gradient(135deg, ${brandColor}, ${brandColor}cc)`,
                       }}
@@ -458,7 +458,7 @@ export default function SalonPage() {
                         getInitials(member.firstName, member.lastName)
                       )}
                     </div>
-                    <h3 className="mt-4 text-lg font-bold text-gray-900">
+                    <h3 className="mt-4 text-lg font-heading font-medium text-charcoal">
                       {member.firstName} {member.lastName}
                     </h3>
                     <span
@@ -487,11 +487,11 @@ export default function SalonPage() {
       {/*  REVIEWS SECTION                                              */}
       {/* ============================================================ */}
       {salon.reviews.length > 0 && (
-        <section className="py-16 sm:py-24 bg-white">
+        <section className="py-16 sm:py-24 bg-cream">
           <div className="mx-auto max-w-6xl px-4">
             <div className="text-center mb-12">
               <div
-                className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-4"
+                className="inline-flex items-center gap-2 rounded-sm px-4 py-1.5 text-sm font-semibold mb-4"
                 style={{
                   backgroundColor: `rgba(${brandRgb}, 0.1)`,
                   color: brandColor,
@@ -500,14 +500,14 @@ export default function SalonPage() {
                 <Star className="h-4 w-4" />
                 Reviews
               </div>
-              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-heading font-medium text-charcoal tracking-tight">
                 What Our Clients Say
               </h2>
               <div className="mt-4 flex items-center justify-center gap-3">
                 <div className="flex items-center gap-1">
                   {renderStars(salon.avgRating)}
                 </div>
-                <span className="text-2xl font-black text-gray-900">
+                <span className="text-2xl font-heading font-medium text-charcoal">
                   {salon.avgRating}
                 </span>
                 <span className="text-gray-500">
@@ -521,7 +521,7 @@ export default function SalonPage() {
               {salon.reviews.map((review) => (
                 <div
                   key={review.id}
-                  className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="rounded-sm border border-gray-100 bg-white p-6 shadow-warm-sm hover:shadow-warm transition-shadow"
                 >
                   <Quote
                     className="h-8 w-8 mb-3 opacity-20"
@@ -576,7 +576,7 @@ export default function SalonPage() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-12">
             <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-4"
+              className="inline-flex items-center gap-2 rounded-sm px-4 py-1.5 text-sm font-semibold mb-4"
               style={{
                 backgroundColor: `rgba(${brandRgb}, 0.1)`,
                 color: brandColor,
@@ -585,13 +585,13 @@ export default function SalonPage() {
               <MapPin className="h-4 w-4" />
               Visit Us
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-heading font-medium text-charcoal tracking-tight">
               Get in Touch
             </h2>
           </div>
 
           <div className="mx-auto max-w-2xl">
-            <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
+            <div className="rounded-sm bg-white border border-gray-100 shadow-warm-sm overflow-hidden">
               <div
                 className="h-2"
                 style={{
@@ -604,7 +604,7 @@ export default function SalonPage() {
                   {(salon.address || salon.city) && (
                     <div className="flex items-start gap-4">
                       <div
-                        className="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm flex-shrink-0"
                         style={{
                           backgroundColor: `rgba(${brandRgb}, 0.1)`,
                         }}
@@ -612,7 +612,7 @@ export default function SalonPage() {
                         <MapPin className="h-5 w-5" style={{ color: brandColor }} />
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-gray-900">
+                        <h4 className="text-sm font-heading font-medium text-charcoal">
                           Address
                         </h4>
                         <p className="mt-1 text-sm text-gray-600">
@@ -629,7 +629,7 @@ export default function SalonPage() {
                   {salon.phone && (
                     <div className="flex items-start gap-4">
                       <div
-                        className="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm flex-shrink-0"
                         style={{
                           backgroundColor: `rgba(${brandRgb}, 0.1)`,
                         }}
@@ -637,7 +637,7 @@ export default function SalonPage() {
                         <Phone className="h-5 w-5" style={{ color: brandColor }} />
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-gray-900">
+                        <h4 className="text-sm font-heading font-medium text-charcoal">
                           Phone
                         </h4>
                         <a
@@ -654,7 +654,7 @@ export default function SalonPage() {
                   {salon.email && (
                     <div className="flex items-start gap-4">
                       <div
-                        className="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm flex-shrink-0"
                         style={{
                           backgroundColor: `rgba(${brandRgb}, 0.1)`,
                         }}
@@ -662,7 +662,7 @@ export default function SalonPage() {
                         <Mail className="h-5 w-5" style={{ color: brandColor }} />
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-gray-900">
+                        <h4 className="text-sm font-heading font-medium text-charcoal">
                           Email
                         </h4>
                         <a
@@ -678,7 +678,7 @@ export default function SalonPage() {
                   {/* Hours */}
                   <div className="flex items-start gap-4">
                     <div
-                      className="flex h-11 w-11 items-center justify-center rounded-xl flex-shrink-0"
+                      className="flex h-11 w-11 items-center justify-center rounded-sm flex-shrink-0"
                       style={{
                         backgroundColor: `rgba(${brandRgb}, 0.1)`,
                       }}
@@ -686,7 +686,7 @@ export default function SalonPage() {
                       <Clock className="h-5 w-5" style={{ color: brandColor }} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-gray-900">
+                      <h4 className="text-sm font-heading font-medium text-charcoal">
                         Business Hours
                       </h4>
                       <p className="mt-1 text-sm text-gray-600">
@@ -704,7 +704,7 @@ export default function SalonPage() {
                 <div className="mt-8 pt-6 border-t border-gray-100 text-center">
                   <a
                     href={bookUrl}
-                    className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm font-bold text-white transition-all hover:shadow-lg hover:scale-105 active:scale-100"
+                    className="inline-flex items-center gap-2 rounded-sm px-8 py-3 text-sm font-medium text-white transition-all hover:shadow-warm hover:scale-105 active:scale-100"
                     style={{ backgroundColor: brandColor }}
                   >
                     <Calendar className="h-4 w-4" />
@@ -721,13 +721,13 @@ export default function SalonPage() {
       {/* ============================================================ */}
       {/*  FOOTER                                                       */}
       {/* ============================================================ */}
-      <footer className="border-t border-gray-200 bg-white py-8">
+      <footer className="border-t border-gray-200 bg-cream py-8">
         <div className="mx-auto max-w-6xl px-4 text-center">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-charcoal/40">
             Powered by{" "}
-            <span className="font-semibold text-gray-600">Full Chair</span>
+            <span className="font-semibold text-charcoal/60">Full Chair</span>
           </p>
-          <p className="mt-1 text-xs text-gray-300">
+          <p className="mt-1 text-xs text-charcoal/30">
             Beauty salon management made simple
           </p>
         </div>
@@ -739,7 +739,7 @@ export default function SalonPage() {
       <div className="fixed bottom-6 right-6 z-50">
         <a
           href={bookUrl}
-          className="flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white shadow-2xl transition-all hover:scale-110 active:scale-100"
+          className="flex items-center gap-2 rounded-sm px-6 py-3.5 text-sm font-medium text-white shadow-warm transition-all hover:scale-110 active:scale-100"
           style={{
             backgroundColor: brandColor,
             boxShadow: `0 8px 32px rgba(${brandRgb}, 0.4)`,

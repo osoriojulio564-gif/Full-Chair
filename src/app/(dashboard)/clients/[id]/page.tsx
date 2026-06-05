@@ -250,7 +250,7 @@ export default function ClientDetailPage() {
                   />
                 </div>
               ) : (
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-2xl font-heading font-medium text-charcoal">
                   {client.firstName} {client.lastName}
                 </h1>
               )}
@@ -421,13 +421,13 @@ export default function ClientDetailPage() {
         {/* Stats row */}
         <div className="mt-6 flex gap-6 border-t border-gray-100 pt-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-indigo-600">
+            <p className="text-2xl font-heading font-medium text-brand-600">
               {client._count.appointments}
             </p>
             <p className="text-xs text-gray-500">Appointments</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-indigo-600">
+            <p className="text-2xl font-heading font-medium text-brand-600">
               {client._count.reviews}
             </p>
             <p className="text-xs text-gray-500">Reviews</p>
@@ -439,7 +439,7 @@ export default function ClientDetailPage() {
       {showDeleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="mx-4 w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-heading font-medium text-charcoal">
               Delete Client
             </h3>
             <p className="mt-2 text-sm text-gray-600">
@@ -478,7 +478,7 @@ export default function ClientDetailPage() {
       <div className="card">
         <div className="mb-4 flex items-center gap-2">
           <Clock className="h-5 w-5 text-indigo-600" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Appointment History
           </h2>
         </div>
@@ -541,7 +541,7 @@ export default function ClientDetailPage() {
       <div className="card">
         <div className="mb-4 flex items-center gap-2">
           <Star className="h-5 w-5 text-indigo-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Reviews</h2>
+          <h2 className="text-lg font-heading font-medium text-charcoal">Reviews</h2>
         </div>
 
         {client.reviews.length === 0 ? (

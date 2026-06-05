@@ -79,14 +79,14 @@ export default function ReviewPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-cream flex flex-col">
         <Header />
         <div className="flex-1 flex items-center justify-center px-4">
-          <div className="card max-w-md w-full text-center py-12">
+          <div className="card shadow-warm max-w-md w-full text-center py-12">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
               <CheckCircle className="h-12 w-12 text-green-600 animate-bounce" />
             </div>
-            <h2 className="mt-6 text-2xl font-bold text-gray-900">
+            <h2 className="mt-6 text-2xl font-heading font-medium text-charcoal">
               Thank you for your feedback!
             </h2>
             <p className="mt-3 text-gray-600">
@@ -121,23 +121,23 @@ export default function ReviewPage() {
   /* ================================================================ */
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-cream flex flex-col">
       <Header />
 
       <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="card max-w-md w-full">
+        <div className="card shadow-warm max-w-md w-full">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-heading font-medium text-charcoal">
               How was your visit?
             </h2>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-charcoal/50">
               We&apos;d love to hear about your experience. Your feedback helps
               us improve.
             </p>
           </div>
 
           {error && (
-            <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 text-sm text-red-700">
+            <div className="mb-6 rounded-sm bg-red-50 border border-red-200 p-4 text-sm text-red-700">
               {error}
             </div>
           )}
@@ -217,9 +217,9 @@ export default function ReviewPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-400">
+      <footer className="border-t border-gray-200 bg-cream py-4 text-center text-xs text-charcoal/40">
         Powered by{" "}
-        <span className="font-semibold text-gray-600">Full Chair</span>
+        <span className="font-semibold text-charcoal/60">Full Chair</span>
       </footer>
     </div>
   );
@@ -234,14 +234,14 @@ function Header() {
     <header className="bg-gradient-to-r from-brand-600 to-brand-800 text-white">
       <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white/20 backdrop-blur-sm">
             <Scissors className="h-5 w-5 text-white" />
           </div>
           <div>
             <div className="text-xs font-medium text-brand-200">
               Leave a Review
             </div>
-            <h1 className="text-xl font-bold">Full Chair</h1>
+            <h1 className="text-xl font-heading font-medium">Full Chair</h1>
           </div>
         </div>
       </div>

@@ -296,7 +296,7 @@ export default function AppointmentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Appointments</h1>
+          <h1 className="text-2xl font-heading font-medium text-charcoal">Appointments</h1>
           <p className="text-gray-500 mt-1">
             Manage and track all salon appointments.
           </p>
@@ -323,7 +323,7 @@ export default function AppointmentsPage() {
       {showForm && (
         <div className="card">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-heading font-medium text-charcoal">
               New Appointment
             </h2>
             <button

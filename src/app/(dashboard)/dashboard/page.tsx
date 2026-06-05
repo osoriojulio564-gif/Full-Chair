@@ -104,8 +104,8 @@ export default async function DashboardPage() {
       label: "Monthly Appointments",
       value: monthAppointments,
       icon: TrendingUp,
-      color: "text-purple-600",
-      bg: "bg-purple-50",
+      color: "text-brand-600",
+      bg: "bg-brand-50",
     },
     {
       label: "Total Clients",
@@ -140,7 +140,7 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <h1 className="text-2xl font-heading font-medium text-charcoal">Dashboard</h1>
         <p className="text-gray-500 mt-1">
           Welcome back! Here&apos;s an overview of your salon.
         </p>
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-1">
+                  <p className="text-2xl font-heading font-medium text-charcoal mt-1">
                     {stat.value}
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export default async function DashboardPage() {
         <div className="card p-6">
           <div className="flex items-center gap-2 mb-4">
             <Clock className="w-5 h-5 text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-heading font-medium text-charcoal">
               Upcoming Appointments
             </h2>
           </div>
@@ -216,7 +216,7 @@ export default async function DashboardPage() {
         <div className="card p-6">
           <div className="flex items-center gap-2 mb-4">
             <Star className="w-5 h-5 text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-heading font-medium text-charcoal">
               Recent Reviews
             </h2>
           </div>

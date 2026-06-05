@@ -125,7 +125,7 @@ export default function ReviewsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Star className="h-7 w-7 text-indigo-600" />
-          <h1 className="text-2xl font-bold text-gray-900">Reviews</h1>
+          <h1 className="text-2xl font-heading font-medium text-charcoal">Reviews</h1>
           <span className="rounded-full bg-indigo-100 px-3 py-0.5 text-sm font-medium text-indigo-700">
             {reviews.length}
           </span>
@@ -135,7 +135,7 @@ export default function ReviewsPage() {
       {/* Average Rating */}
       {reviews.length > 0 && (
         <div className="card flex items-center gap-4">
-          <div className="text-4xl font-bold text-gray-900">
+          <div className="text-4xl font-heading font-medium text-charcoal">
             {averageRating.toFixed(1)}
           </div>
           <div>
@@ -184,7 +184,7 @@ export default function ReviewsPage() {
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-3">
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-heading font-medium text-charcoal">
                       {review.client.firstName} {review.client.lastName}
                     </h3>
                     <StarRating rating={review.rating} />

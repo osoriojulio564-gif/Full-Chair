@@ -86,7 +86,7 @@ export default function ClientsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Users className="h-7 w-7 text-indigo-600" />
-          <h1 className="text-2xl font-bold text-gray-900">Clients</h1>
+          <h1 className="text-2xl font-heading font-medium text-charcoal">Clients</h1>
           <span className="rounded-full bg-indigo-100 px-3 py-0.5 text-sm font-medium text-indigo-700">
             {clients.length}
           </span>
@@ -121,7 +121,7 @@ export default function ClientsPage() {
       {showForm && (
         <div className="card">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">New Client</h2>
+            <h2 className="text-lg font-heading font-medium text-charcoal">New Client</h2>
             <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600">
               <X className="h-5 w-5" />
             </button>
@@ -224,10 +224,10 @@ export default function ClientsPage() {
             <Link
               key={client.id}
               href={`/clients/${client.id}`}
-              className="card transition-shadow hover:shadow-md"
+              className="card transition-shadow hover:shadow-warm"
             >
               <div className="mb-3 flex items-start justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-heading font-medium text-charcoal">
                   {client.firstName} {client.lastName}
                 </h3>
                 <div className="flex gap-2 text-xs text-gray-500">

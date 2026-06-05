@@ -130,10 +130,10 @@ export default function FeedbackPage() {
   if (step === "loading") {
     if (loadError) {
       return (
-        <div className="min-h-screen bg-gray-50 flex flex-col">
+        <div className="min-h-screen bg-cream flex flex-col">
           <Header salonName={null} />
           <div className="flex-1 flex items-center justify-center px-4">
-            <div className="card max-w-md w-full text-center py-12">
+            <div className="card shadow-warm max-w-md w-full text-center py-12">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
                 <MessageSquare className="h-8 w-8 text-red-500" />
               </div>
@@ -145,7 +145,7 @@ export default function FeedbackPage() {
     }
 
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-cream flex flex-col">
         <Header salonName={null} />
         <div className="flex-1 flex items-center justify-center px-4">
           <Loader2 className="h-8 w-8 animate-spin text-brand-600" />
@@ -160,14 +160,14 @@ export default function FeedbackPage() {
 
   if (step === "result" && isHighRating) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-cream flex flex-col">
         <Header salonName={appointment?.salonName ?? null} />
         <div className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="card max-w-md w-full text-center py-10 animate-fade-in">
+          <div className="card shadow-warm max-w-md w-full text-center py-10 animate-fade-in">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
               <CheckCircle className="h-12 w-12 text-green-600 animate-bounce" />
             </div>
-            <h2 className="mt-6 text-2xl font-bold text-gray-900">
+            <h2 className="mt-6 text-2xl font-heading font-medium text-charcoal">
               Thank you, {appointment?.clientName}!
             </h2>
             <p className="mt-3 text-gray-600">
@@ -219,14 +219,14 @@ export default function FeedbackPage() {
 
   if (step === "result" && !isHighRating) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-cream flex flex-col">
         <Header salonName={appointment?.salonName ?? null} />
         <div className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="card max-w-md w-full text-center py-10 animate-fade-in">
+          <div className="card shadow-warm max-w-md w-full text-center py-10 animate-fade-in">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
               <MessageSquare className="h-12 w-12 text-blue-600" />
             </div>
-            <h2 className="mt-6 text-2xl font-bold text-gray-900">
+            <h2 className="mt-6 text-2xl font-heading font-medium text-charcoal">
               Thank you for your feedback
             </h2>
             <p className="mt-3 text-gray-600">
@@ -262,17 +262,17 @@ export default function FeedbackPage() {
   /* ================================================================ */
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-cream flex flex-col">
       <Header salonName={appointment?.salonName ?? null} />
 
       <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="card max-w-md w-full">
+        <div className="card shadow-warm max-w-md w-full">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-heading font-medium text-charcoal">
               How was your visit?
             </h2>
             {appointment && (
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-charcoal/50">
                 Hi {appointment.clientName}! Tell us about your{" "}
                 <span className="font-medium text-gray-700">
                   {appointment.serviceName}
@@ -287,7 +287,7 @@ export default function FeedbackPage() {
           </div>
 
           {error && (
-            <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 text-sm text-red-700">
+            <div className="mb-6 rounded-sm bg-red-50 border border-red-200 p-4 text-sm text-red-700">
               {error}
             </div>
           )}
@@ -397,14 +397,14 @@ function Header({ salonName }: { salonName: string | null }) {
     <header className="bg-gradient-to-r from-brand-600 to-brand-800 text-white">
       <div className="mx-auto max-w-2xl px-4 py-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white/20 backdrop-blur-sm">
             <Scissors className="h-5 w-5 text-white" />
           </div>
           <div>
             <div className="text-xs font-medium text-brand-200">
               Share Your Experience
             </div>
-            <h1 className="text-xl font-bold">
+            <h1 className="text-xl font-heading font-medium">
               {salonName || "Full Chair"}
             </h1>
           </div>
@@ -420,9 +420,9 @@ function Header({ salonName }: { salonName: string | null }) {
 
 function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-400">
+    <footer className="border-t border-gray-200 bg-cream py-4 text-center text-xs text-charcoal/40">
       Powered by{" "}
-      <span className="font-semibold text-gray-600">Full Chair</span>
+      <span className="font-semibold text-charcoal/60">Full Chair</span>
     </footer>
   );
 }

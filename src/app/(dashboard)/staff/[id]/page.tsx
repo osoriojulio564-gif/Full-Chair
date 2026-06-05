@@ -321,7 +321,7 @@ export default function StaffDetailPage() {
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <UserCog className="h-6 w-6 text-indigo-600" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-heading font-medium text-charcoal">
               Staff Profile
             </h2>
           </div>
@@ -488,7 +488,7 @@ export default function StaffDetailPage() {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-xl font-heading font-medium text-charcoal">
                     {staff.firstName} {staff.lastName}
                   </h3>
                   <span
@@ -542,7 +542,7 @@ export default function StaffDetailPage() {
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Clock className="h-6 w-6 text-indigo-600" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-heading font-medium text-charcoal">
               Weekly Schedule
             </h2>
           </div>
@@ -676,7 +676,7 @@ export default function StaffDetailPage() {
       <div className="card">
         <div className="mb-4 flex items-center gap-3">
           <Calendar className="h-6 w-6 text-indigo-600" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Recent Appointments
           </h2>
         </div>
@@ -745,7 +745,7 @@ export default function StaffDetailPage() {
       <div className="card">
         <div className="mb-4 flex items-center gap-3">
           <Star className="h-6 w-6 text-indigo-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Reviews</h2>
+          <h2 className="text-lg font-heading font-medium text-charcoal">Reviews</h2>
         </div>
 
         {staff.reviews.length === 0 ? (

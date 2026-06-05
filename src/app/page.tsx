@@ -21,39 +21,40 @@ const benefits = [
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-cream">
       <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700" />
-              <span className="text-xl font-bold text-gray-900">Full Chair</span>
+              <div className="h-8 w-8 rounded-sm bg-brand-600" />
+              <span className="text-xl font-heading font-medium text-charcoal">Full Chair</span>
             </div>
-            <div className="flex items-center gap-4">
-              <Link href="/explore" className="text-sm font-medium text-gray-600 hover:text-gray-900">Find a Salon</Link>
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900">Log in</Link>
+            <div className="flex items-center gap-6">
+              <Link href="/explore" className="text-sm font-medium text-gray-600 hover:text-charcoal transition-colors">Find a Salon</Link>
+              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-charcoal transition-colors">Log in</Link>
               <Link href="/register" className="btn-primary">Get Started</Link>
             </div>
           </div>
         </div>
       </nav>
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-purple-50 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-cream py-24 sm:py-32">
+        <div className="absolute inset-0 bg-gradient-to-br from-cream via-white to-blush/30" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+            <h1 className="text-4xl font-heading font-medium tracking-tight text-charcoal sm:text-6xl">
               Your salon,{" "}
-              <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">always full</span>
+              <span className="text-brand-600">always full</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               The all-in-one CRM for beauty salons. Online booking, WhatsApp automations,
               client management, reviews, and real-time notifications.
             </p>
             <div className="mt-10 flex items-center justify-center gap-4">
-              <Link href="/register" className="btn-primary text-base px-8 py-3">
+              <Link href="/register" className="btn-primary text-xs px-8 py-3">
                 Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link href="#features" className="btn-secondary text-base px-8 py-3">See Features</Link>
+              <Link href="#features" className="btn-secondary text-xs px-8 py-3">See Features</Link>
             </div>
           </div>
         </div>
@@ -62,28 +63,28 @@ export default function LandingPage() {
       <section id="features" className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Everything your salon needs</h2>
+            <h2 className="text-3xl font-heading font-medium text-charcoal sm:text-4xl">Everything your salon needs</h2>
             <p className="mt-4 text-lg text-gray-600">Built specifically for beauty professionals.</p>
           </div>
           <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((f) => (
-              <div key={f.title} className="card hover:shadow-md transition-shadow">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-100">
+              <div key={f.title} className="card hover:shadow-warm hover:-translate-y-1 transition-all duration-300">
+                <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-brand-100">
                   <f.icon className="h-6 w-6 text-brand-600" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900">{f.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{f.desc}</p>
+                <h3 className="mt-4 text-lg font-heading font-medium text-charcoal">{f.title}</h3>
+                <p className="mt-2 text-sm text-gray-600 leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Why salons choose Full Chair</h2>
+              <h2 className="text-3xl font-heading font-medium text-charcoal sm:text-4xl">Why salons choose Full Chair</h2>
               <div className="mt-8 space-y-4">
                 {benefits.map((b) => (
                   <div key={b} className="flex items-start gap-3">
@@ -93,14 +94,14 @@ export default function LandingPage() {
                 ))}
               </div>
             </div>
-            <div className="card bg-gradient-to-br from-brand-600 to-brand-800 text-white border-0">
+            <div className="card bg-charcoal text-white border-0 shadow-warm">
               <div className="text-center py-8">
-                <div className="text-5xl font-bold">60%</div>
-                <div className="mt-2 text-brand-200">fewer no-shows</div>
-                <div className="mt-8 text-5xl font-bold">3x</div>
-                <div className="mt-2 text-brand-200">more reviews</div>
-                <div className="mt-8 text-5xl font-bold">24/7</div>
-                <div className="mt-2 text-brand-200">online booking</div>
+                <div className="text-5xl font-heading font-medium">60%</div>
+                <div className="mt-2 text-blush">fewer no-shows</div>
+                <div className="mt-8 text-5xl font-heading font-medium">3x</div>
+                <div className="mt-2 text-blush">more reviews</div>
+                <div className="mt-8 text-5xl font-heading font-medium">24/7</div>
+                <div className="mt-2 text-blush">online booking</div>
               </div>
             </div>
           </div>
@@ -109,15 +110,15 @@ export default function LandingPage() {
 
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Ready to fill every chair?</h2>
+          <h2 className="text-3xl font-heading font-medium text-charcoal sm:text-4xl">Ready to fill every chair?</h2>
           <p className="mt-4 text-lg text-gray-600">Join salons already using Full Chair to grow.</p>
-          <Link href="/register" className="btn-primary text-base px-8 py-3 mt-8 inline-flex">
+          <Link href="/register" className="btn-primary text-xs px-8 py-3 mt-8 inline-flex">
             Get Started Free <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
       </section>
 
-      <footer className="border-t border-gray-200 bg-gray-50 py-12">
+      <footer className="border-t border-gray-200 bg-cream py-12">
         <div className="mx-auto max-w-7xl px-4 text-center text-sm text-gray-500">
           &copy; {new Date().getFullYear()} Full Chair. All rights reserved.
         </div>

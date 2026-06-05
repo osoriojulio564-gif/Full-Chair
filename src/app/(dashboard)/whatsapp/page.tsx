@@ -176,7 +176,7 @@ export default function WhatsAppPage() {
       <div className="flex items-center gap-3">
         <MessageSquare className="h-7 w-7 text-green-600" />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-heading font-medium text-charcoal">
             WhatsApp Integration
           </h1>
           <p className="text-sm text-gray-500">
@@ -190,7 +190,7 @@ export default function WhatsAppPage() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <Settings className="h-5 w-5 text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-heading font-medium text-charcoal">
               Configuration
             </h2>
             <FeedbackBadge section="config" />
@@ -303,7 +303,7 @@ export default function WhatsAppPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-4">
           <Zap className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
+          <h2 className="text-lg font-heading font-medium text-charcoal">Quick Actions</h2>
         </div>
         <div className="flex flex-wrap gap-3">
           <div className="relative group">
@@ -338,7 +338,7 @@ export default function WhatsAppPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-4">
           <MessageSquare className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Message Templates
           </h2>
         </div>
@@ -350,7 +350,7 @@ export default function WhatsAppPage() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <MessageSquare className="h-4 w-4 text-green-600" />
-                <h3 className="text-sm font-semibold text-gray-900">
+                <h3 className="text-sm font-heading font-medium text-charcoal">
                   {template.name}
                 </h3>
               </div>
@@ -366,7 +366,7 @@ export default function WhatsAppPage() {
       <div className="card">
         <div className="flex items-center gap-2 mb-6">
           <Settings className="h-5 w-5 text-gray-500" />
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-heading font-medium text-charcoal">
             Automation Settings
           </h2>
           <FeedbackBadge section="automations" />

@@ -42,12 +42,12 @@ const SORT_OPTIONS = [
 ];
 
 const PLACEHOLDER_GRADIENTS = [
-  "from-brand-400 to-purple-600",
-  "from-fuchsia-400 to-pink-600",
-  "from-violet-400 to-indigo-600",
-  "from-pink-400 to-rose-600",
-  "from-purple-400 to-brand-600",
-  "from-indigo-400 to-violet-600",
+  "from-brand-400 to-brand-700",
+  "from-amber-400 to-orange-600",
+  "from-rose-400 to-red-600",
+  "from-emerald-400 to-teal-600",
+  "from-brand-500 to-amber-700",
+  "from-stone-400 to-stone-700",
 ];
 
 function getGradient(name: string): string {
@@ -80,7 +80,7 @@ function SalonCard({ salon }: { salon: Salon }) {
   const isPremium = salon.plan === "PREMIUM";
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="group relative flex flex-col overflow-hidden rounded-sm border border-gray-200 bg-white shadow-warm-sm transition-all duration-300 hover:shadow-warm hover:-translate-y-1">
       {/* Cover image */}
       <div className="relative h-48 w-full overflow-hidden">
         {salon.coverImage ? (
@@ -93,7 +93,7 @@ function SalonCard({ salon }: { salon: Salon }) {
           <div
             className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${getGradient(salon.name)}`}
           >
-            <span className="text-5xl font-bold text-white/80">
+            <span className="text-5xl font-heading font-medium text-white/80">
               {salon.name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -113,7 +113,7 @@ function SalonCard({ salon }: { salon: Salon }) {
             <img
               src={salon.logo}
               alt=""
-              className="h-12 w-12 rounded-xl border-2 border-white object-cover shadow-md"
+              className="h-12 w-12 rounded-sm border-2 border-white object-cover shadow-warm-sm"
             />
           </div>
         )}
@@ -121,7 +121,7 @@ function SalonCard({ salon }: { salon: Salon }) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-600 transition-colors">
+        <h3 className="text-lg font-heading font-medium text-charcoal group-hover:text-brand-600 transition-colors">
           {salon.name}
         </h3>
 
@@ -181,7 +181,7 @@ function SalonCard({ salon }: { salon: Salon }) {
         <div className="mt-auto pt-5">
           <Link
             href={`/book/${salon.slug}`}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:from-brand-700 hover:to-brand-600 hover:shadow-md active:scale-[0.98]"
+            className="btn-primary flex w-full items-center justify-center gap-2"
           >
             Book Now
             <ChevronRight className="h-4 w-4" />
@@ -223,14 +223,14 @@ export default function ExplorePage() {
   }, [fetchSalons]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-cream">
       {/* Nav */}
       <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700" />
-              <span className="text-xl font-bold text-gray-900">Full Chair</span>
+              <div className="h-8 w-8 rounded-sm bg-brand-500" />
+              <span className="text-xl font-heading font-medium text-charcoal">Full Chair</span>
             </Link>
             <div className="flex items-center gap-4">
               <Link
@@ -248,16 +248,9 @@ export default function ExplorePage() {
       </nav>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-purple-800 py-16 sm:py-24">
-        {/* Decorative blobs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-brand-400/20 blur-3xl" />
-          <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-purple-400/20 blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full bg-fuchsia-400/10 blur-3xl" />
-        </div>
-
+      <section className="relative overflow-hidden bg-charcoal py-16 sm:py-24">
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-heading font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
             Find your perfect salon
           </h1>
           <p className="mt-4 text-lg text-brand-200 sm:text-xl">
@@ -273,7 +266,7 @@ export default function ExplorePage() {
                 placeholder="Search by city or location..."
                 value={citySearch}
                 onChange={(e) => setCitySearch(e.target.value)}
-                className="w-full rounded-2xl border-0 bg-white py-4 pl-12 pr-4 text-base text-gray-900 shadow-2xl placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-brand-300/50"
+                className="w-full rounded-sm border-0 bg-white py-4 pl-12 pr-4 text-base text-charcoal shadow-warm placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-brand-300/50"
               />
             </div>
           </div>
@@ -309,7 +302,7 @@ export default function ExplorePage() {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500 hidden sm:inline">Sort by:</span>
-              <div className="flex rounded-lg border border-gray-200 bg-gray-50 p-0.5">
+              <div className="flex rounded-sm border border-gray-200 bg-gray-50 p-0.5">
                 {SORT_OPTIONS.map((opt) => (
                   <button
                     key={opt.value}
@@ -336,14 +329,14 @@ export default function ExplorePage() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="animate-pulse rounded-2xl border border-gray-200 bg-white overflow-hidden"
+                className="animate-pulse rounded-sm border border-gray-200 bg-white overflow-hidden"
               >
                 <div className="h-48 bg-gray-200" />
                 <div className="p-5 space-y-3">
                   <div className="h-5 w-3/4 rounded bg-gray-200" />
                   <div className="h-4 w-1/2 rounded bg-gray-200" />
                   <div className="h-4 w-2/3 rounded bg-gray-200" />
-                  <div className="h-10 w-full rounded-xl bg-gray-200 mt-4" />
+                  <div className="h-10 w-full rounded-sm bg-gray-200 mt-4" />
                 </div>
               </div>
             ))}
@@ -360,8 +353,8 @@ export default function ExplorePage() {
             <div className="flex h-24 w-24 items-center justify-center rounded-full bg-brand-50">
               <Scissors className="h-12 w-12 text-brand-300" />
             </div>
-            <h3 className="mt-6 text-xl font-semibold text-gray-900">No salons found</h3>
-            <p className="mt-2 max-w-md text-gray-500">
+            <h3 className="mt-6 text-xl font-heading font-medium text-charcoal">No salons found</h3>
+            <p className="mt-2 max-w-md text-gray-600">
               {citySearch
                 ? `We couldn't find any salons in "${citySearch}". Try a different city or clear your search.`
                 : "No salons are listed yet. Check back soon!"}
@@ -386,7 +379,7 @@ export default function ExplorePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-md bg-gradient-to-br from-brand-500 to-brand-700" />
+              <div className="h-6 w-6 rounded-sm bg-brand-500" />
               <span className="text-sm font-semibold text-gray-700">Powered by Full Chair</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-500">

@@ -2,44 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), Georgia, serif;
+  }
+}
+
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2
-      text-sm font-semibold text-white shadow-sm transition-all duration-200
-      hover:bg-brand-700 hover:shadow-md active:scale-[0.98]
+    @apply inline-flex items-center justify-center rounded-sm bg-brand-600 px-5 py-2.5
+      text-xs font-medium tracking-widest uppercase text-white shadow-warm-sm transition-all duration-300
+      hover:bg-brand-700 hover:shadow-warm hover:-translate-y-0.5 active:scale-[0.98]
       focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2
       disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm disabled:active:scale-100;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-sm border border-gray-200 bg-white px-5 py-2.5
+      text-xs font-medium tracking-widest uppercase text-gray-700 shadow-sm transition-all duration-300
+      hover:bg-gray-50 hover:-translate-y-0.5
+      focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-700;
+    @apply inline-flex items-center justify-center rounded-sm bg-red-700 px-5 py-2.5
+      text-xs font-medium tracking-widest uppercase text-white shadow-sm transition-all duration-300
+      hover:bg-red-800;
   }
   .input-field {
-    @apply w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900
+    @apply w-full rounded-sm border border-gray-200 px-4 py-2.5 text-sm text-gray-900 bg-white
       transition-all duration-200
       placeholder:text-gray-400
       focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
   }
   .card {
-    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200;
+    @apply rounded-sm border border-gray-200 bg-white p-6 shadow-warm-sm transition-all duration-300;
+  }
+  .card-hover {
+    @apply card hover:shadow-warm hover:-translate-y-1;
   }
   .skeleton {
-    @apply animate-pulse rounded bg-gray-200;
+    @apply animate-pulse rounded-sm bg-gray-200;
   }
   .toast {
-    @apply fixed bottom-4 right-4 z-50 rounded-lg px-4 py-3 text-sm font-medium shadow-lg
+    @apply fixed bottom-4 right-4 z-50 rounded-sm px-4 py-3 text-sm font-medium shadow-warm
       transition-all duration-300;
   }
   .toast-success {
-    @apply bg-green-600 text-white;
+    @apply bg-green-700 text-white;
   }
   .toast-error {
-    @apply bg-red-600 text-white;
+    @apply bg-red-700 text-white;
   }
   .glass {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20;
+    @apply bg-white/80 backdrop-blur-sm border border-gray-200/50;
   }
 }
 
@@ -51,7 +65,7 @@
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.3s ease-out;
+  animation: fadeInUp 0.4s ease-out;
 }
 
 @keyframes slideDown {

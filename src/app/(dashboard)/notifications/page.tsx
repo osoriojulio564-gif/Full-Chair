@@ -94,7 +94,7 @@ export default function NotificationsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Bell className="h-7 w-7 text-indigo-600" />
-          <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
+          <h1 className="text-2xl font-heading font-medium text-charcoal">Notifications</h1>
           {unreadCount > 0 && (
             <span className="rounded-full bg-red-100 px-3 py-0.5 text-sm font-medium text-red-700">
               {unreadCount} unread
